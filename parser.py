@@ -1,4 +1,4 @@
-# Note - this code must run in Python 2.x and you must download
+# Note - this code must run in Python 3.x and you must download
 # http://www.pythonlearn.com/code/BeautifulSoup.py
 # Into the same folder as this program
 
@@ -7,6 +7,7 @@ import uuid
 import re
 import codecs
 import sys
+import logging
 from importlib import reload
 import json as dumper
 from bs4 import BeautifulSoup
@@ -25,8 +26,11 @@ from markupsafe import Markup, escape
 
 def readHTMLdoc():
     # url = 'http://0.0.0.0:8080/DFARSHTML/index.html'
-    url = 'http://0.0.0.0:8080/FARHTML/index.html'
-    html = urllib.request.urlopen(url).read()
+    url = 'http://0.0.0.0:8080/FARHTML/Part_52.html'
+    logging.warning(url)
+    with urllib.request.urlopen(url) as response:
+        html = response.read()
+    # html = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(html)
 
     findLinks(soup)
@@ -91,7 +95,7 @@ def parseLanguage(url):
             thisContent = thisContent.replace("\"", " ")
             thisContent = thisContent.replace("\n", " ")
 
-            # thisContent = str(thisContent.escape(u'<a>bá</a>'))
+            # thisContent = str(thisContent.escape(u'<a>b</a>'))
             # print(thisContent)
             # thisContent = remove_html_markup(thisContent.text.encode("utf-8"))
 
@@ -111,7 +115,7 @@ def parseLanguage(url):
 
 
     # for tag in elements:
-    #     if tag.name == 'h3':ß
+    #     if tag.name == 'h3':
     #         regContent = dumper.dumps(regContent)
 
     #         regTitle = tag.text.encode("utf-8")
